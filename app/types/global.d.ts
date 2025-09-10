@@ -282,7 +282,6 @@ export type DeepPartial<T> = {
 export interface ThemeColors {
   primary: string
   secondary: string
-  accent: string
   ink: string
   paper: string
 }
