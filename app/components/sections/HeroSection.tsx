@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import Link from 'next/link'
-import { Calendar, Eye } from 'lucide-react'
+import { Calendar } from 'lucide-react'
 import { siteConfig } from '@/lib/config'
 import { useInView } from 'react-intersection-observer'
 
@@ -21,15 +21,9 @@ export default function HeroSection() {
 
   useEffect(() => {
     if (prefersReduced) return
-    const id = setInterval(() => {
-      setCurrent((p) => (p + 1) % images.length)
-    }, 5000)
+    const id = setInterval(() => setCurrent((p) => (p + 1) % images.length), 5000)
     return () => clearInterval(id)
   }, [prefersReduced])
-
-  const scrollToPortfolio = () => {
-    document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   const wa = `https://wa.me/${siteConfig.business.whatsapp}?text=${encodeURIComponent(siteConfig.contact.whatsappMessage)}`
 
@@ -40,7 +34,6 @@ export default function HeroSection() {
           key={current}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('${images[current]}')` }}
@@ -68,28 +61,26 @@ export default function HeroSection() {
           Transformo historias personales en obras de arte únicas e irrepetibles.
         </motion.p>
 
+        {/* ÚNICO CTA */}
         <motion.div
           initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex justify-center"
         >
           <Link
             href={wa}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Agendar consulta por WhatsApp"
-            className="px-8 py-4 rounded-lg bg-ink-red text-white text-sm font-medium"
+            aria-label="Agenda tu consulta por WhatsApp"
+            data-cta="hero"
+            className="px-8 py-4 rounded-lg bg-ink-red text-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-ink-dark"
           >
-            <span className="flex items-center gap-2 justify-center"><Calendar size={20}/>Agenda tu Consulta</span>
+            <span className="flex items-center gap-2 justify-center">
+              <Calendar size={20} aria-hidden="true" />
+              Agenda tu consulta
+            </span>
           </Link>
-          <button
-            onClick={scrollToPortfolio}
-            aria-label="Ver portafolio"
-            className="px-8 py-4 rounded-lg border border-ink-red text-white text-sm"
-          >
-            <span className="flex items-center gap-2 justify-center"><Eye size={20}/>Ver Mi Trabajo</span>
-          </button>
         </motion.div>
       </div>
     </section>
