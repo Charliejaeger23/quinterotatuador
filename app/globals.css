@@ -5,10 +5,18 @@
 /* ---------- COMPONENTS ---------- */
 @layer components {
   .container-custom { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
-  .section { @apply py-16 lg:py-24; }
-  .card {
-    @apply rounded-xl border border-white/10 bg-white/5 shadow-[0_6px_24px_rgba(0,0,0,.35)] backdrop-blur-sm;
+  .section { padding-block:80px; }
+  .card-min {
+    border:1px solid rgba(255,255,255,.08);
+    background:#0B0B0B;
+    border-radius:16px;
   }
+  .card-quiet {
+    background:#0B0B0B;
+    border-radius:16px;
+  }
+  .text-dim { color:rgba(248,248,248,.75); }
+  .text-mute { color:rgba(248,248,248,.6); }
 }
 
 /* ---------- BASE ---------- */

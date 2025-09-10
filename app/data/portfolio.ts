@@ -307,19 +307,3 @@ export const getPortfolioByTag = (tag: string): PortfolioItem[] => {
     )
   )
 }
-
-// Estadísticas del portfolio
-export const getPortfolioStats = () => {
-  const totalItems = portfolioData.length
-  const totalHours = portfolioData.reduce((acc, item) => acc + (item.process?.totalHours || 0), 0)
-  const avgRating = 4.9 // Basado en testimonios
-  const categories = [...new Set(portfolioData.map(item => item.category))].length
-  
-  return {
-    totalItems,
-    totalHours,
-    avgRating,
-    categories,
-    clientSatisfaction: '100%'
-  }
-}
