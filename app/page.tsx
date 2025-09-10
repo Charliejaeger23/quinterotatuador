@@ -6,7 +6,6 @@ import ValueProposition from '@/app/components/sections/ValueProposition'
 import PortfolioSection from '@/app/components/sections/PortfolioSection'
 import ProcessSection from '@/app/components/sections/ProcessSection'
 import TestimonialsSection from '@/app/components/sections/TestimonialsSection'
-import FAQSection from '@/app/components/sections/FAQSection'
 import FinalCTASection from '@/app/components/sections/FinalCTASection'
 
 // Loading components for better UX
@@ -57,11 +56,6 @@ export default function HomePage() {
         {/* Testimonials */}
         <Suspense fallback={<SectionSkeleton />}>
           <TestimonialsSection />
-        </Suspense>
-        
-        {/* FAQ Section */}
-        <Suspense fallback={<SectionSkeleton />}>
-          <FAQSection />
         </Suspense>
         
         {/* Final CTA */}
