@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- COMPONENTS ---------- */
+@layer components {
+  .container-custom { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .section { @apply py-16 lg:py-24; }
+  .card {
+    @apply rounded-xl border border-white/10 bg-white/5 shadow-[0_6px_24px_rgba(0,0,0,.35)] backdrop-blur-sm;
+  }
+}
+
+/* ---------- BASE ---------- */
+@layer base {
+  * { @apply border-white/10; }
+  html { scroll-behavior: smooth; }
+  body {
+    /* Usamos hex directo para evitar el error mientras Tailwind toma la config */
+    background-color: #000000; /* bg-ink-black */
+    color: #F8F8F8;            /* text-ink-white */
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  p { color: rgba(248,248,248,0.8); } /* text-ink-white/80 */
+}
+
+/* ---------- UTILITIES (deja esto mínimo por ahora) ---------- */
+/* Importante: evita mapear utilidades con @apply a colores ink.* hasta que confirme que compila ok */
+
+::-webkit-scrollbar{ width:8px; }
+::-webkit-scrollbar-track{ background:#141414; } /* ink.soft */
+::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover{ background: rgba(255,255,255,.25); }
+
+/* Título con degradado rojo vino */
+.gradient-text{
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(90deg, rgba(122,14,14,1) 0%, rgba(122,14,14,.65) 50%, rgba(255,255,255,.85) 100%);
+}
