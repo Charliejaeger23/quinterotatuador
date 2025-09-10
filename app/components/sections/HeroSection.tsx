@@ -21,9 +21,7 @@ export default function HeroSection() {
 
   useEffect(() => {
     if (prefersReduced) return
-    const id = setInterval(() => {
-      setCurrent((p) => (p + 1) % images.length)
-    }, 5000)
+    const id = setInterval(() => setCurrent((p) => (p + 1) % images.length), 5000)
     return () => clearInterval(id)
   }, [prefersReduced])
 
@@ -36,7 +34,6 @@ export default function HeroSection() {
           key={current}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('${images[current]}')` }}
@@ -64,6 +61,7 @@ export default function HeroSection() {
           Transformo historias personales en obras de arte únicas e irrepetibles.
         </motion.p>
 
+        {/* ÚNICO CTA */}
         <motion.div
           initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -74,11 +72,14 @@ export default function HeroSection() {
             href={wa}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Agenda tu consulta"
+            aria-label="Agenda tu consulta por WhatsApp"
             data-cta="hero"
             className="px-8 py-4 rounded-lg bg-ink-red text-white text-sm font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-ink-dark"
           >
-            <span className="flex items-center gap-2 justify-center"><Calendar size={20}/>Agenda tu consulta</span>
+            <span className="flex items-center gap-2 justify-center">
+              <Calendar size={20} aria-hidden="true" />
+              Agenda tu consulta
+            </span>
           </Link>
         </motion.div>
       </div>
