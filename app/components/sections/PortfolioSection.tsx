@@ -1,57 +1,127 @@
-'use client'
-
-import { useState, useMemo } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
-import { portfolioData } from '@/app/data/portfolio'
-
-const toTitle = (s: string) => s.split(/[-_\s]+/).map(w=> w? w[0].toUpperCase()+w.slice(1): w).join(' ')
-
-export default function PortfolioSection(){
-  const prefersReduced = useReducedMotion()
-  const categoryIds = useMemo(() => Array.from(new Set(portfolioData.map(i=>i.category))), [])
-  const filters = useMemo(() => [{ id: 'todos', label: 'Todos' }, ...categoryIds.map(id => ({ id, label: toTitle(id) }))], [categoryIds])
-  const [filter,setFilter] = useState<string>('todos')
-  const items = useMemo(()=>{
-    if(filter==='todos') return portfolioData
-    const key = filter
-    return portfolioData.filter(it=>it.category===key || it.tags.map(t=>t.toLowerCase()).includes(key))
-  },[filter])
-
+"use client";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import { photoPath, portfolioData } from "@/app/data/portfolio";
+export default function PortfolioSection() {
+  const [index, setIndex] = useState(0);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const opener = useRef<HTMLButtonElement | null>(null);
+  const active = portfolioData[index];
+  const change = (step: number) =>
+    setIndex((i) => (i + step + portfolioData.length) % portfolioData.length);
+  function close() {
+    dialog.current?.close();
+  }
   return (
-    <section id="portfolio" className="section">
-      <div className="container-custom">
-        <motion.h2
-          initial={prefersReduced?{opacity:0}:{opacity:0, y:12}}
-          whileInView={{opacity:1, y:0}}
-          viewport={{once:true}}
-          transition={{duration:0.5}}
-          className="font-cinzel text-3xl text-center mb-8"
-        >
-          Portafolio
-        </motion.h2>
-        <div className="flex gap-3 mb-6 justify-center">
-          {filters.map(f=> (
-            <button
-              key={f.id}
-              onClick={()=>setFilter(f.id)}
-              className={`px-3 py-1 border border-white/10 rounded-full text-sm hover:bg-white/10 ${filter===f.id?'bg-white/10':''}`}
-            >
-              {f.label}
-            </button>
-          ))}
+    <section id="obras" className="section portfolio">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">01 / Portafolio</p>
+          <h2>
+            Obras seleccionadas<span className="red-period">.</span>
+          </h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {items.map(it=> (
-            <figure key={it.id} className="group relative overflow-hidden rounded-xl">
-              <img src={it.imageUrl} alt={it.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
-              <figcaption className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition">
-                <p className="font-medium">{it.title}</p>
-                <p className="text-mute text-xs mt-1">{it.tags.slice(0,2).join(' • ')}</p>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        <p>
+          Seis piezas. Distintas historias.
+          <br />
+          Una mirada al trabajo sobre la piel.
+        </p>
       </div>
+      <div className="portfolio-grid">
+        {portfolioData.map((item, i) => (
+          <figure key={item.id}>
+            <button
+              className="work-image"
+              aria-label={"Ampliar " + item.title}
+              aria-haspopup="dialog"
+              onClick={(e) => {
+                opener.current = e.currentTarget;
+                setIndex(i);
+                dialog.current?.showModal();
+                document.body.style.overflow = "hidden";
+              }}
+            >
+              <Image
+                src={photoPath(item.id)}
+                alt={item.alt}
+                width={item.width}
+                height={item.height}
+                sizes="(max-width: 540px) 100vw, (max-width: 900px) 50vw, 33vw"
+              />
+              <span className="zoom-hint" aria-hidden="true">
+                Ver obra ↗
+              </span>
+            </button>
+            <figcaption>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.category}</p>
+              </div>
+              <span className="work-number">0{i + 1}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <dialog
+        ref={dialog}
+        className="lightbox"
+        aria-label="Vista ampliada de la obra"
+        onClose={() => {
+          document.body.style.overflow = "";
+          opener.current?.focus();
+        }}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) close();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowRight") {
+            e.preventDefault();
+            change(1);
+          }
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            change(-1);
+          }
+          if (e.key === "Tab") {
+            const buttons = e.currentTarget.querySelectorAll("button");
+            const first = buttons[0],
+              last = buttons[buttons.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }}
+      >
+        <div className="lightbox-top">
+          <span aria-live="polite">
+            {index + 1} / {portfolioData.length} · {active.title}
+          </span>
+          <button onClick={close} autoFocus aria-label="Cerrar imagen ampliada">
+            Cerrar ×
+          </button>
+        </div>
+        <div className="lightbox-image">
+          <Image
+            src={photoPath(active.id)}
+            alt={active.alt}
+            width={active.width}
+            height={active.height}
+          />
+        </div>
+        <div className="lightbox-bottom">
+          <button onClick={() => change(-1)} aria-label="Obra anterior">
+            ← Anterior
+          </button>
+          <span>{active.category}</span>
+          <button onClick={() => change(1)} aria-label="Obra siguiente">
+            Siguiente →
+          </button>
+        </div>
+      </dialog>
     </section>
-  )
+  );
 }

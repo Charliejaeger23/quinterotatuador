@@ -1,36 +1,52 @@
-'use client'
-
-import { motion, useReducedMotion } from 'framer-motion'
-
-export default function ProcessSection(){
-  const prefersReduced = useReducedMotion()
-  const steps = [
-    {t:'Consulta', d:'30–45 min · $30 USD (descontable)'},
-    {t:'Diseño Anatómico', d:'Boceto único · 3–7 días'},
-    {t:'Sesión VIP', d:'2–8 h · técnicas avanzadas'},
-    {t:'Aftercare', d:'Seguimiento 30 días'},
-  ]
+const steps = [
+  [
+    "Escucha",
+    "Comenzamos por tu idea, tus referencias y lo que quieres expresar.",
+  ],
+  [
+    "Claridad",
+    "Conversamos sobre la zona, el tamaño y las posibilidades de tu proyecto.",
+  ],
+  [
+    "Diseño",
+    "La propuesta toma forma a partir de esa conversación y de tu historia.",
+  ],
+  [
+    "Adaptación anatómica",
+    "El diseño se piensa en relación con las formas y el movimiento de tu cuerpo.",
+  ],
+  [
+    "Ejecución y cuidado",
+    "Trabajamos la pieza y conversamos sobre los cuidados y las dudas posteriores.",
+  ],
+];
+export default function ProcessSection() {
   return (
-    <section id="proceso" className="section">
-      <div className="container-custom">
-        <motion.h2
-          initial={prefersReduced?{opacity:0}:{opacity:0, y:12}}
-          whileInView={{opacity:1, y:0}}
-          viewport={{once:true}}
-          transition={{duration:0.5}}
-          className="font-cinzel text-3xl text-center mb-8"
-        >
-          Proceso
-        </motion.h2>
-        <div className="grid md:grid-cols-4 gap-6">
-          {steps.map(s => (
-            <div key={s.t} className="card-min p-6">
-              <h4 className="font-cinzel text-lg">{s.t}</h4>
-              <p className="text-mute text-sm mt-2">{s.d}</p>
-            </div>
-          ))}
+    <section id="proceso" className="process section">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">02 / El proceso</p>
+          <h2>
+            Una idea merece
+            <br />
+            su propio camino.
+          </h2>
         </div>
+        <p>
+          La primera conversación también
+          <br />
+          forma parte del tatuaje.
+        </p>
       </div>
+      <ol className="steps">
+        {steps.map(([title, text], i) => (
+          <li key={title}>
+            <span className="step-number">0{i + 1}</span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </li>
+        ))}
+      </ol>
     </section>
-  )
+  );
 }

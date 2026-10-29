@@ -4,11 +4,12 @@
   "description": "Portfolio premium para Carlos Quintero - Tatuador profesional en Valencia, Venezuela",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/serve-review.cjs",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "preview": "node scripts/serve-review.cjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
