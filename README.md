@@ -18,6 +18,8 @@ La revisión del VPS está en http://127.0.0.1:4183 a través del túnel SSH abi
 
 ## Documentación
 
+- [Refinamiento V1.1](docs/INFORME_V1.1.md)
+
 - [Informe de implementación y pruebas](docs/INFORME_V1.md)
 - [Producción, respaldo y rollback](docs/OPERACION-Y-ROLLBACK.md)
 - [Estado de WhatsApp/AssistInk](docs/ASSISTINK.md)

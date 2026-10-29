@@ -5,7 +5,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const base = process.env.QT_REVIEW_URL || "http://127.0.0.1:4173";
-const output = path.resolve(__dirname, "../../evidence");
+const output = path.resolve(__dirname, "../../evidence/v1.1");
 fs.mkdirSync(output, { recursive: true });
 
 (async () => {
@@ -62,6 +62,14 @@ fs.mkdirSync(output, { recursive: true });
           .locator('a[href*="wa.me"]')
           .evaluateAll((els) => els.map((el) => el.href));
         assert.equal(links.length, 4);
+        assert.equal(
+          await page.locator(".portfolio-grid figure:visible").count(),
+          width < 761 ? 3 : 6,
+        );
+        assert.match(
+          await page.locator(".portfolio-grid figure").first().innerText(),
+          /Retrato, aves y flores/,
+        );
         for (const link of links) {
           const url = new URL(link);
           assert.equal(url.pathname, "/584129583666");
@@ -89,12 +97,48 @@ fs.mkdirSync(output, { recursive: true });
           assert.equal(await menu.getAttribute("aria-expanded"), "false");
           assert.match(page.url(), /#obras$/);
         }
+        if (width < 761) {
+          const expand = page.getByRole("button", {
+            name: "Ver las seis obras",
+            exact: true,
+          });
+          await expand.click();
+          assert.equal(
+            await page.locator(".portfolio-grid figure:visible").count(),
+            6,
+          );
+          await page
+            .getByRole("button", { name: "Mostrar tres obras", exact: true })
+            .click();
+          assert.equal(
+            await page.locator(".portfolio-grid figure:visible").count(),
+            3,
+          );
+          await page.locator("#proceso").scrollIntoViewIfNeeded();
+          await page
+            .locator(".mobile-project-link")
+            .waitFor({ state: "visible" });
+          const cta = await page.locator(".mobile-project-link").boundingBox();
+          const header = await page.locator(".site-header").boundingBox();
+          assert(
+            cta.y >= header.y && cta.y + cta.height <= header.y + header.height,
+          );
+          await page.locator(".menu-toggle").click();
+          await page
+            .locator(".mobile-project-link")
+            .waitFor({ state: "hidden" });
+          await page.keyboard.press("Escape");
+        }
         const first = page.getByRole("button", {
-          name: "Ampliar León y rosa",
+          name: "Ampliar Retrato, aves y flores",
           exact: true,
         });
         await first.click();
         await page.getByRole("dialog").waitFor({ state: "visible" });
+        if (width < 761)
+          await page
+            .locator(".mobile-project-link")
+            .waitFor({ state: "hidden" });
         if (engine === "chromium") {
           await page.keyboard.press("ArrowRight");
           assert.match(
@@ -142,6 +186,10 @@ fs.mkdirSync(output, { recursive: true });
           assert(await image.evaluate((img) => img.naturalWidth > 0));
         }
         await page.evaluate(() => scrollTo(0, 0));
+        if (width < 761)
+          await page
+            .locator(".mobile-project-link")
+            .waitFor({ state: "hidden" });
         if (engine === "chromium" && [390, 1440].includes(width)) {
           const size = width === 390 ? "mobile" : "desktop";
           await page.screenshot({

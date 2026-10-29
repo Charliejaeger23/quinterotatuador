@@ -868,3 +868,135 @@ details > p {
     transform: none;
   }
 }
+/* V1.1: readable supporting copy; editorial indices stay deliberately compact. */
+.hero-description,
+.section-heading > p,
+.steps p,
+.artist-copy > p:not(.eyebrow):not(.artist-intro),
+.section-note,
+details > p,
+.final-cta > p:not(.eyebrow):not(.contact-number) {
+  font-size: 15px;
+  line-height: 1.85;
+}
+.hero-statement {
+  font-size: 16px;
+}
+.steps h3,
+.portfolio-grid h3 {
+  font-size: 16px;
+}
+.portfolio-grid figcaption p,
+summary,
+.footer-main > p,
+.footer-main > p > span,
+.footer-main > div,
+.contact-number {
+  font-size: 14px;
+}
+.button,
+.text-link {
+  font-size: 14px;
+}
+.nav-cta {
+  font-size: 12px;
+}
+.hero-actions {
+  gap: 20px;
+}
+.artist-copy > p:not(.eyebrow):not(.artist-intro) {
+  margin-bottom: 20px;
+}
+.steps h3 {
+  min-height: 58px;
+}
+summary {
+  line-height: 1.7;
+}
+.portfolio-expand,
+.mobile-project-link {
+  display: none;
+}
+@media (max-width: 760px) {
+  .portfolio-grid:not(.is-expanded) .additional-work {
+    display: none;
+  }
+  .portfolio-expand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    min-height: 52px;
+    margin-top: 32px;
+    padding: 14px 18px;
+    background: transparent;
+    border: 1px solid #67635c;
+    font-size: 14px;
+  }
+  .mobile-project-link {
+    display: inline-flex;
+    min-height: 44px;
+    padding: 8px 14px;
+    gap: 12px;
+    font-size: 13px;
+  }
+  .site-header:has(.mobile-project-link) .brand > span {
+    display: none;
+  }
+  .site-header {
+    gap: 12px;
+  }
+  .site-header .mobile-project-link {
+    margin-left: auto;
+  }
+  .site-header .menu-toggle {
+    flex-shrink: 0;
+  }
+  .hero-actions {
+    gap: 16px 24px;
+  }
+  .hero-actions .button,
+  .hero-actions .text-link {
+    font-size: 14px;
+  }
+  .hero-actions .button {
+    padding: 14px 20px;
+  }
+  .hero-copy {
+    padding-top: 40px;
+  }
+  .steps h3 {
+    min-height: 0;
+  }
+  .section-heading {
+    gap: 24px;
+  }
+  .footer-main {
+    row-gap: 28px;
+  }
+  .footer-main > div {
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+}
+@media (max-width: 360px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+  .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-meta {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .final-cta h2 {
+    font-size: 34px;
+  }
+  .lightbox-top {
+    align-items: flex-start;
+  }
+}

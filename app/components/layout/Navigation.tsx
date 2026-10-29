@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import ProjectLink from "../ProjectLink";
+import MobileProjectCTA from "./MobileProjectCTA";
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   return (
@@ -28,6 +29,7 @@ export default function Navigation() {
           QUINTERO<span className="brand-sub">TATUADOR</span>
         </span>
       </a>
+      <MobileProjectCTA menuOpen={open} />
       <button
         className="menu-toggle"
         aria-expanded={open}

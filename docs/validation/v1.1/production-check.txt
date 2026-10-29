@@ -1,0 +1,3 @@
+dfdcc06ea6d5c9c93654d01e9219904fbdb464cc00ddab9f5c99d5e0eed361f8  /srv/qram-lab/sites/quinterotatuador.com/html/index.html
+6ab52fcc1ac81f6d900dfd52254ad9a05a5ed563b6f6657e3d2eb132398ee754  /srv/qram-lab/sites/quinterotatuador.com/html/styles.css
+4bf00033e26ca710ca58b26e80d6f8788ef0363fc2e5adfc51fb10c84e468be6 2026-10-29T02:14:48.529272044Z

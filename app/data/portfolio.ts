@@ -2,14 +2,6 @@
 // Descriptions reflect visible subjects only, without invented stories or timings.
 export const portfolioData = [
   {
-    id: "leon-rosa-valor",
-    title: "León y rosa",
-    category: "Realismo en grises",
-    alt: "León rugiendo sobre una rosa, tatuado en el brazo con sombras en negro y gris.",
-    width: 961,
-    height: 1280,
-  },
-  {
     id: "reina-aves-peonias",
     title: "Retrato, aves y flores",
     category: "Composición figurativa",
@@ -47,6 +39,14 @@ export const portfolioData = [
     category: "Neotradicional",
     alt: "Zorro naranja dentro de un marco negro ornamental con flores rosadas en el antebrazo.",
     width: 854,
+    height: 1280,
+  },
+  {
+    id: "leon-rosa-valor",
+    title: "León y rosa",
+    category: "Realismo en grises",
+    alt: "León rugiendo sobre una rosa, tatuado en el brazo con sombras en negro y gris.",
+    width: 961,
     height: 1280,
   },
 ] as const;

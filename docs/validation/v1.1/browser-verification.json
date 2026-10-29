@@ -1,0 +1,64 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "checks": [
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "status": "PASS",
+      "sections": 6,
+      "works": 6,
+      "whatsappLinks": 4
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "status": "PASS",
+      "sections": 6,
+      "works": 6,
+      "whatsappLinks": 4
+    },
+    {
+      "engine": "chromium",
+      "width": 320,
+      "status": "PASS",
+      "sections": 6,
+      "works": 6,
+      "whatsappLinks": 4
+    },
+    {
+      "engine": "chromium",
+      "width": 768,
+      "status": "PASS",
+      "sections": 6,
+      "works": 6,
+      "whatsappLinks": 4
+    },
+    {
+      "engine": "firefox",
+      "width": 390,
+      "status": "PASS",
+      "sections": 6,
+      "works": 6,
+      "whatsappLinks": 4
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "status": "PASS",
+      "sections": 6,
+      "works": 6,
+      "whatsappLinks": 4
+    }
+  ],
+  "errors": [],
+  "accessibility": [
+    {
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "violations": []
+    }
+  ]
+}

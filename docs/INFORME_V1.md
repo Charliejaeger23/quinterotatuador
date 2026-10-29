@@ -83,3 +83,7 @@ El contenedor de revisión no tiene política de reinicio automático. Después 
 1. **AssistInk:** Meta confirma +584129583666 / Quinterotatuador / GREEN; el interruptor específico está apagado. El flujo actual no sigue el orden requerido y los cover-ups derivan antes de completar las preguntas. No se cambió el bot. ASSISTINK.md detalla la integración y la prueba pendiente.
 2. **Dependencias:** npm audit reporta 17 dependencias con avisos (1 crítica, 12 altas, 4 moderadas). No se resolvieron. La entrega publica solo archivos estáticos; no desplegar el runtime Next existente. SEGURIDAD.md contiene el alcance.
 3. **Aprobación:** falta aprobación de diseño y publicación. No se ha publicado V1 en el dominio público. Antes de publicar hay que construir explícitamente en modo producción, renovar respaldo y completar los pasos de OPERACION-Y-ROLLBACK.md.
+
+## Iteración V1.1
+
+Ver [informe de refinamiento visual](INFORME_V1.1.md) para la revisión posterior: legibilidad, galería móvil de tres/seis obras, reordenación y CTA contextual. Conserva las restricciones de producción y AssistInk de este informe.

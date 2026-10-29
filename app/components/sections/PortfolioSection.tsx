@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { photoPath, portfolioData } from "@/app/data/portfolio";
 export default function PortfolioSection() {
   const [index, setIndex] = useState(0);
+  const [expanded, setExpanded] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
   const active = portfolioData[index];
@@ -27,15 +28,22 @@ export default function PortfolioSection() {
           Una mirada al trabajo sobre la piel.
         </p>
       </div>
-      <div className="portfolio-grid">
+      <div
+        id="portfolio-works"
+        className={expanded ? "portfolio-grid is-expanded" : "portfolio-grid"}
+      >
         {portfolioData.map((item, i) => (
-          <figure key={item.id}>
+          <figure
+            key={item.id}
+            className={i > 2 ? "additional-work" : undefined}
+          >
             <button
               className="work-image"
               aria-label={"Ampliar " + item.title}
               aria-haspopup="dialog"
               onClick={(e) => {
                 opener.current = e.currentTarget;
+                // Keep all six lightbox works available, including while the grid is collapsed.
                 setIndex(i);
                 dialog.current?.showModal();
                 document.body.style.overflow = "hidden";
@@ -62,6 +70,15 @@ export default function PortfolioSection() {
           </figure>
         ))}
       </div>
+      <button
+        className="portfolio-expand"
+        aria-controls="portfolio-works"
+        aria-expanded={expanded}
+        onClick={() => setExpanded(!expanded)}
+      >
+        {expanded ? "Mostrar tres obras" : "Ver las seis obras"}
+        <span aria-hidden="true">{expanded ? "−" : "+"}</span>
+      </button>
       <dialog
         ref={dialog}
         className="lightbox"
